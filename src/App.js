@@ -1,25 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react'
+import Header from './Components/Header';
+import Main from './Components/Main';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ThemeContext from './Contexts/ThemeContext';
+
+
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { theme : ""}
+  }
+
+  changeMode =() => {
+
+    this.setState((state) => {
+      return (state.theme !== "dark")? {theme:"dark"}: {theme:""}
+    })
+  }
+
+  render() {
+    return (
+      <ThemeContext.Provider value = {{theme: this.state.theme, changeMode: this.changeMode}}>
+        <div className='App'>
+        <Header/>
+        <Main />
+      </div>
+      </ThemeContext.Provider>
+    );
+  }
 }
 
-export default App;
+export default App
+
